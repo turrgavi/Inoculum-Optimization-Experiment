@@ -1,14 +1,11 @@
 #Read count relative abundance
 #This has been pushed
 
-setwd("C:/Users/gavin/Google Drive/University of Queensland/ACE Research project/Psychrophilic Methanogensis/Inoculum Optimization Experiment/Findings")
- 
-data = read.csv("pca_test.csv")
-
+setwd("/home/gavin/Inoculum-Optimization-Experiment/Data")
 library(vegan)
 
-log.ab = log(data[,3:5])
+data1 = as.matrix(read.delim(file="pca_test_txt.txt", sep="\t", header = T))
+data1[is.na(data1)] = 0
 
-ab.species = data[,2]
+ab.pca = prcomp(data1, scale. = TRUE)
 
-ab.pca = prcomp(log.ab, scale. = TRUE, na.omit(data))
