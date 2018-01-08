@@ -1,11 +1,20 @@
 #Read count relative abundance
 #This has been pushed
 
-setwd("/home/gavin/Inoculum-Optimization-Experiment/Data")
+#setwd("/Users/cadeturrell/Google Drive/University of Queensland/ACE Research project/Psychrophilic Methanogensis/Inoculum Optimization Experiment")
+setwd("C:/Users/gavin/Google Drive/University of Queensland/ACE Research project/Psychrophilic Methanogensis/Inoculum Optimization Experiment/Data")
+#setwd("/home/gavin/Inoculum-Optimization-Experiment/Data")
 library(vegan)
+library(pca3d)
 
-data1 = as.matrix(read.delim(file="pca_test_txt.txt", sep="\t", header = T))
+data1 = read.csv("genus_abundance_methanogen.csv")
+#data1 = as.matrix(read.delim(file="pca_test_txt.txt", sep="\t", header = T))
 data1[is.na(data1)] = 0
 
-ab.pca = prcomp(data1, scale. = TRUE)
+pca = prcomp(data1[,-1], scale. = TRUE)
+gr = factor(data1[1,])
+summary(gr)
 
+#pca2d(ab.pca, group = gr, biplot = TRUE, show.labels = FALSE)
+
+pca3d(pca, group=data1[,1], biplot = TRUE, biplot.vars = "23", show.labels =TRUE, show.plane = TRUE)
